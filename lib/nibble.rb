@@ -4,7 +4,7 @@ require "nibble/client"
 
 module Nibble
   def self.run(args)
-    abort("usage: #{__FILE__} --generate-config OR config.yml script.rb") if args.size != 2
+    abort("usage: #{__FILE__} --generate-config OR config.yml script.rb") if args.size < 1
 
     if ARGV.first == "--generate-config"
       Config.dump
@@ -13,8 +13,8 @@ module Nibble
 
       script = File.read(args.last)
 
-      client = Client.new(args.first)
-      client.instance_exec(script)
+      client = Client.new
+      client.instance_eval(script)
     end
   end
 end

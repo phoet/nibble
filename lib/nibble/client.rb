@@ -4,17 +4,19 @@ require "faraday"
 module Nibble
   class Client
     def initialize
-      @conn = Faraday.new(url: "http://#{Config[:ip]}") do |faraday|
+      @conn = Faraday.new(url: "http://#{Config[:connection][:ip]}") do |faraday|
         faraday.request(:url_encoded)
         faraday.response(:logger)
         faraday.adapter(Faraday.default_adapter)
       end
     end
 
-    def talk(text, options = {})
-      options = .merge(options)
+    def tts(text, options = {})
+      options = Config.defaults[:ttl].merge(options).merge(text: text)
       execute(:tts, options)
     end
+    alias_method :talk, :tts
+    alias_method :speak, :tts
 
     def execute(method, options = {})
       response = @conn.get("/cgi-bin/tts", options)
