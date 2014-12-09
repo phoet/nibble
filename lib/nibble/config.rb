@@ -17,7 +17,9 @@ module Nibble
     def self.defaults
       {
         connection: {ip: "10.0.1.200"},
-        ttl: {voice: "andreas", nocache: "0", mute: "0"},
+        wakeup: {silent: 0},
+        ttl: {voice: "andreas", nocache: 0, mute: 0},
+        leds: {color: "00FF00", color2: "00FF00", pulse: 0, speed: 700, no_memory: 0},
       }
     end
 

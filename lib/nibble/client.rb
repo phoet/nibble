@@ -11,16 +11,18 @@ module Nibble
       end
     end
 
-    def voice_list
-      execute(:voice_list)
+    METHODS = %i(leds tts wakeup sleep get_version status voice_list display_cache clear_cache)
+    METHODS.each do |method|
+      define_method(method) do |*args|
+        options = args.first || {}
+        options = (Config.defaults[method] || {}).merge(options)
+        execute(method, options)
+      end
     end
 
-    def tts(text, options = {})
-      options = Config.defaults[:ttl].merge(options).merge(text: text)
-      execute(:tts, options)
+    def say(text, options = {})
+      tts(options.merge(text: text))
     end
-    alias_method :talk, :tts
-    alias_method :speak, :tts
 
     def execute(method, options = {})
       response = @conn.get("/cgi-bin/#{method}", options)
