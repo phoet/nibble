@@ -20,6 +20,7 @@ module Nibble
         wakeup: {silent: 0},
         ttl: {voice: "andreas", nocache: 0, mute: 0},
         leds: {color: "00FF00", color2: "00FF00", pulse: 0, speed: 700, no_memory: 0},
+        ears: {noreset: 1, left: 0, right: 0},
       }
     end
 

@@ -11,7 +11,7 @@ module Nibble
       end
     end
 
-    METHODS = %i(leds tts wakeup sleep get_version status voice_list display_cache clear_cache)
+    METHODS = %i(leds tts ears ears_mode ears_random ears_reset squeezebox radio_list sound_list sound sound_control wakeup sleep get_version status voice_list display_cache clear_cache)
     METHODS.each do |method|
       define_method(method) do |*args|
         options = args.first || {}
