@@ -3,7 +3,7 @@ require "yaml"
 module Nibble
   class Config
     def self.dump(path = "config.yml")
-      File.open(path, 'w') do |f| 
+      File.open(path, 'w') do |f|
         puts "writing defaults to #{File.absolute_path(f)}"
 
         f.write(YAML.dump(defaults))
@@ -11,7 +11,7 @@ module Nibble
     end
 
     def self.load(path)
-      @config = YAML.load(File.read(path))
+      @config = deep_merge(defaults, YAML.load(File.read(path)))
     end
 
     def self.defaults
@@ -22,7 +22,19 @@ module Nibble
     end
 
     def self.[](key)
-      @config[key] || defaults[key]
+      @config[key]
+    end
+
+    def self.deep_merge(target, hash)
+      hash.keys.each do |key|
+        if hash[key].is_a? Hash and target[key].is_a? Hash
+          target[key] = deep_merge(target[key], hash[key])
+          next
+        end
+
+        target[key] = hash[key]
+      end
+      target
     end
   end
 end
