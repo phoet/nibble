@@ -1,5 +1,7 @@
 # Nibble
 
+[![Build Status](https://img.shields.io/travis/phoet/asin/master.svg)](https://travis-ci.org/burn-notice/nibble)
+
 TODO: Write a gem description
 
 ## Installation
