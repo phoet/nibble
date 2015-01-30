@@ -9,6 +9,7 @@ module Nibble
     if ARGV.first == "--generate-config"
       Config.dump
     else
+      abort("usage: #{__FILE__} config.yml script.rb") if args.size != 2
       Config.load(args.first)
 
       script = File.read(args.last)
